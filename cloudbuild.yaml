@@ -1,17 +1,16 @@
-  steps:
+steps:
+  # Display gcloud version, this step seems incorrect as per its current usage. Assuming it's for debug, adjust if needed.
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['--version','deploy', '...', '--image=gcr.io/$PROJECT_ID/users-service:${_COMMIT_SHA}', ...]
-    options:
-      substitutions:
-        _BRANCH_NAME: 'default-branch'
-        _COMMIT_SHA: 'latest'
+    args: ['version']
 
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA', '.']
+
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA']
+
   # Deploy container image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
@@ -23,8 +22,9 @@
     - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
     - '--region'
     - 'us-central1'
-    - '--verbosity=debug' # to get more detailed error information
-    - '--allow-unauthenticated' # Allow unauthenticated access
-  images:
-  - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
-  
+    - '--verbosity=debug'
+    - '--allow-unauthenticated'
+
+# Specify the images to be available after the build process.
+images:
+- 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
