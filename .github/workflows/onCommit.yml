@@ -17,7 +17,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v3.6.0
         with:
@@ -38,12 +37,15 @@ jobs:
       # Deployment step
       - name: 'gcr.io/cloud-builders/gcloud'
         args: ['--version']
+
       # Build the container image
       - name: 'gcr.io/cloud-builders/docker'
         args: ['build', '-t', 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA', '.']
+
       # Push the container image to Container Registry
       - name: 'gcr.io/cloud-builders/docker'
         args: ['push', 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA']
+
       # Deploy container image to Cloud Run
       - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
         entrypoint: gcloud
