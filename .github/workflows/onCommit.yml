@@ -43,4 +43,4 @@ jobs:
 
       # Trigger Cloud Build without unnecessary custom substitutions
       - name: Trigger Cloud Build
-        run: gcloud builds submit --no-source --config=cloudbuild.yaml
+        run: gcloud builds submit --no-source --config=cloudbuild.yaml --substitutions=_COMMIT_SHA=${{ github.sha }}
