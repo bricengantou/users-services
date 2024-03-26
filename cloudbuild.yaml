@@ -1,7 +1,7 @@
 steps:
   # Display gcloud version, this step seems incorrect as per its current usage. Assuming it's for debug, adjust if needed.
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['version']
+    args: ['--version']
 
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
@@ -24,7 +24,7 @@ steps:
     - 'us-central1'
     - '--verbosity=debug'
     - '--allow-unauthenticated'
-
-# Specify the images to be available after the build process.
+    - '--port'  # Specify the port here
+    - '5000'
 images:
-- 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
