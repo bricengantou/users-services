@@ -28,6 +28,3 @@ steps:
 # Specify the images to be available after the build process.
 images:
 - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
-
-substitutions:
-  _COMMIT_SHA: '$COMMIT_SHA'
