@@ -1,10 +1,10 @@
 version: '3.8'
 services:
   app:
-    container_name: users-service-db
+    container_name: nestjs_app
     build: .
     ports:
-      - 3000:3000
+      - ${PORT}:${PORT}
     environment:
       - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
       - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}
