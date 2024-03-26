@@ -29,6 +29,6 @@ COPY . .
 COPY --from=development /app/dist ./dist
 
 # Expose port
-EXPOSE 5000
+EXPOSE 8080
 
 CMD ["node", "dist/main"]

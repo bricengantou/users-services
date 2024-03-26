@@ -25,8 +25,8 @@ steps:
     - '--verbosity=debug'
     - '--allow-unauthenticated'
     - '--port'  # Specify the port here
-    - '5000'
+    - '8080'
     env:
-    - 'APP_PORT=5000'
+    - 'APP_PORT=8080'
 images:
   - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
