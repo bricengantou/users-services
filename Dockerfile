@@ -11,6 +11,8 @@ RUN yarn install --only=development
 
 COPY . .
 
+EXPOSE 5000
+
 RUN yarn build
 
 FROM node:20 as production
@@ -25,6 +27,8 @@ COPY package*.json ./
 RUN yarn install --only=production
 
 COPY . .
+
+EXPOSE 5000
 
 COPY --from=development /app/dist ./dist
 

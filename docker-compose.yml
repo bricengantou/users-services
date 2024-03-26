@@ -4,7 +4,7 @@ services:
     container_name: users-service-db
     build: .
     ports:
-      - ${PORT}:${PORT}
+      - 3000:3000
     environment:
       - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
       - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}
