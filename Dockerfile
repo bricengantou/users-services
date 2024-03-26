@@ -11,8 +11,6 @@ RUN yarn install --only=development
 
 COPY . .
 
-EXPOSE 5000
-
 RUN yarn build
 
 FROM node:20 as production
@@ -28,8 +26,9 @@ RUN yarn install --only=production
 
 COPY . .
 
-EXPOSE 5000
-
 COPY --from=development /app/dist ./dist
+
+# Expose port
+EXPOSE 5000
 
 CMD ["node", "dist/main"]
