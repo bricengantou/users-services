@@ -18,5 +18,7 @@
     - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
     - '--region'
     - 'us-central1'
+    - '--verbosity=debug' # to get more detailed error information
+    - '--allow-unauthenticated' # Allow unauthenticated access
   images:
   - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
