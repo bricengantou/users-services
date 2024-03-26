@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
 import * as admin from 'firebase-admin';
+import { FirebaseController } from './firebase.controller';
+
+import { FirebaseService } from './firebase.service';
 
 @Module({
+  controllers: [FirebaseController],
   providers: [
+    FirebaseService,
     {
       provide: 'FIRESTORE',
       useFactory: () => {
@@ -19,4 +24,4 @@ import * as admin from 'firebase-admin';
   ],
   exports: ['FIRESTORE'],
 })
-export class FirebaseAdminModule {}
+export class FirebaseModule {}

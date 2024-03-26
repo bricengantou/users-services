@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   app:
-    container_name: nestjs_app
+    container_name: users-service-db
     build: .
     ports:
       - ${PORT}:${PORT}
