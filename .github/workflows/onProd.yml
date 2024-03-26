@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - 'release'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Code quality
+        run: yarn run format
+
+      - name: Build app
+        run: yarn run build
+
+      - name: Run tests
+        run: yarn run test --passWithNoTests
+
+      # Setup Google Cloud SDK with a specific version
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.0 # Use the latest version
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      # Trigger Cloud Build without unnecessary custom substitutions
+      - name: Trigger Cloud Build
+        run: gcloud builds submit --no-source --config=cloudbuild.yaml
