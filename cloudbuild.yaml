@@ -17,6 +17,6 @@
     - '--image'
     - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
     - '--region'
-    - 'aucun'
+    - 'us-central1'
   images:
   - 'gcr.io/$PROJECT_ID/users-service:$COMMIT_SHA'
